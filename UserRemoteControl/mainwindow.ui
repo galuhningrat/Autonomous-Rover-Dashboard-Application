@@ -6,13 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1560</width>
+    <width>1800</width>
     <height>1063</height>
    </rect>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1560</width>
+    <width>1800</width>
     <height>1200</height>
    </size>
   </property>
@@ -26,8 +26,8 @@
    <widget class="QWidget" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
+      <x>830</x>
+      <y>520</y>
       <width>281</width>
       <height>361</height>
      </rect>
@@ -78,6 +78,13 @@
        </layout>
       </item>
       <item>
+       <widget class="QProgressBar" name="persentase">
+        <property name="value">
+         <number>0</number>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QLabel" name="cameraLabel">
         <property name="text">
          <string>Camera Data</string>
@@ -88,13 +95,6 @@
        <widget class="QLabel" name="accelerometerLabel">
         <property name="text">
          <string>Accelerometer Data</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QProgressBar" name="persentase">
-        <property name="value">
-         <number>0</number>
         </property>
        </widget>
       </item>
@@ -125,8 +125,8 @@
    <widget class="QLabel" name="rangeLabel">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>420</y>
+      <x>1180</x>
+      <y>960</y>
       <width>175</width>
       <height>45</height>
      </rect>
@@ -150,8 +150,8 @@
    <widget class="QPushButton" name="button180">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>170</y>
+      <x>1150</x>
+      <y>690</y>
       <width>61</width>
       <height>32</height>
      </rect>
@@ -169,9 +169,9 @@
    <widget class="QLabel" name="angleLabel">
     <property name="geometry">
      <rect>
-      <x>380</x>
-      <y>310</y>
-      <width>81</width>
+      <x>1210</x>
+      <y>850</y>
+      <width>101</width>
       <height>45</height>
      </rect>
     </property>
@@ -197,13 +197,19 @@
    <widget class="QGraphicsView" name="graphicsView">
     <property name="geometry">
      <rect>
-      <x>540</x>
+      <x>800</x>
       <y>0</y>
       <width>1000</width>
-      <height>531</height>
+      <height>515</height>
      </rect>
     </property>
     <property name="minimumSize">
+     <size>
+      <width>1000</width>
+      <height>515</height>
+     </size>
+    </property>
+    <property name="maximumSize">
      <size>
       <width>1000</width>
       <height>515</height>
@@ -682,8 +688,8 @@
    <widget class="QPushButton" name="button135">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>130</y>
+      <x>1150</x>
+      <y>650</y>
       <width>61</width>
       <height>32</height>
      </rect>
@@ -701,8 +707,8 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>370</x>
-      <y>270</y>
+      <x>1220</x>
+      <y>810</y>
       <width>150</width>
       <height>41</height>
      </rect>
@@ -728,8 +734,8 @@
    <widget class="QPushButton" name="button90">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>90</y>
+      <x>1150</x>
+      <y>610</y>
       <width>61</width>
       <height>32</height>
      </rect>
@@ -747,8 +753,8 @@
    <widget class="QTextEdit" name="textEdit">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>500</y>
+      <x>1150</x>
+      <y>770</y>
       <width>61</width>
       <height>31</height>
      </rect>
@@ -762,8 +768,8 @@
    <widget class="QPushButton" name="button_auto">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>210</y>
+      <x>1150</x>
+      <y>730</y>
       <width>101</width>
       <height>31</height>
      </rect>
@@ -781,8 +787,8 @@
    <widget class="QLabel" name="lablel_2">
     <property name="geometry">
      <rect>
-      <x>370</x>
-      <y>380</y>
+      <x>1220</x>
+      <y>920</y>
       <width>150</width>
       <height>41</height>
      </rect>
@@ -807,8 +813,8 @@
    <widget class="QPushButton" name="button0">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>10</y>
+      <x>1150</x>
+      <y>530</y>
       <width>61</width>
       <height>32</height>
      </rect>
@@ -826,8 +832,8 @@
    <widget class="QSlider" name="verticalSlider">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>10</y>
+      <x>1270</x>
+      <y>530</y>
       <width>100</width>
       <height>200</height>
      </rect>
@@ -853,8 +859,8 @@
    <widget class="QPushButton" name="button45">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>50</y>
+      <x>1150</x>
+      <y>570</y>
       <width>61</width>
       <height>32</height>
      </rect>
@@ -869,24 +875,11 @@
      <string>45</string>
     </property>
    </widget>
-   <widget class="QProgressBar" name="batteryProgressBar">
-    <property name="geometry">
-     <rect>
-      <x>290</x>
-      <y>1030</y>
-      <width>221</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="value">
-     <number>24</number>
-    </property>
-   </widget>
    <widget class="QWidget" name="layoutWidget1" native="true">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>530</y>
+      <x>10</x>
+      <y>30</y>
       <width>771</width>
       <height>71</height>
      </rect>
@@ -897,7 +890,7 @@
        <x>10</x>
        <y>0</y>
        <width>741</width>
-       <height>51</height>
+       <height>78</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -911,7 +904,14 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="currentTimeValue_2">
+         <widget class="QLabel" name="currentTimeLabel_3">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_8">
           <property name="text">
            <string/>
           </property>
@@ -921,6 +921,13 @@
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayoutVoltage_2">
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Bus Voltage (V) :</string>
+          </property>
+         </widget>
+        </item>
         <item>
          <widget class="QLabel" name="busVoltageLabel">
           <property name="text">
@@ -940,6 +947,13 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayoutCurrent_2">
         <item>
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>Shunt Voltage (mV) :</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QLabel" name="shuntVoltageLabel">
           <property name="text">
            <string>Shunt Voltage (mV) :</string>
@@ -957,6 +971,13 @@
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayoutPower_2">
+        <item>
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>Load Voltage (V) :</string>
+          </property>
+         </widget>
+        </item>
         <item>
          <widget class="QLabel" name="loadVoltageLabel">
           <property name="text">
@@ -976,6 +997,13 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayoutEnergy_2">
         <item>
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>Current (mA) :</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QLabel" name="currentLabel">
           <property name="text">
            <string>Current (mA) :</string>
@@ -993,6 +1021,13 @@
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayoutFrequency_2">
+        <item>
+         <widget class="QLabel" name="label_7">
+          <property name="text">
+           <string>Power (mW) :</string>
+          </property>
+         </widget>
+        </item>
         <item>
          <widget class="QLabel" name="powerLabel">
           <property name="text">
@@ -1015,8 +1050,8 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>510</y>
+      <x>10</x>
+      <y>10</y>
       <width>91</width>
       <height>20</height>
      </rect>
@@ -1028,8 +1063,8 @@
    <widget class="QWidget" name="centralwidget_2" native="true">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>600</y>
+      <x>10</x>
+      <y>100</y>
       <width>771</width>
       <height>400</height>
      </rect>
@@ -1658,7 +1693,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1560</width>
+     <width>1800</width>
      <height>25</height>
     </rect>
    </property>

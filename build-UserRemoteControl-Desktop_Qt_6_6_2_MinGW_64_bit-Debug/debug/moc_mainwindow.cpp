@@ -57,10 +57,6 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::string
     "updateBatteryProgressBar",
     "power",
     "updateHistoricalData",
-    "busVoltage",
-    "shuntVoltage",
-    "loadVoltage",
-    "current",
     "on_button0_clicked",
     "on_button45_clicked",
     "on_button90_clicked",
@@ -80,11 +76,12 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::string
     "updateLaserStatus",
     "status",
     "setSliderEnabled",
-    "enabled"
+    "enabled",
+    "updateCurrentTime"
 );
 #else  // !QT_MOC_HAS_STRING_DATA
 struct qt_meta_stringdata_CLASSMainWindowENDCLASS_t {
-    uint offsetsAndSizes[82];
+    uint offsetsAndSizes[76];
     char stringdata0[11];
     char stringdata1[12];
     char stringdata2[1];
@@ -102,30 +99,27 @@ struct qt_meta_stringdata_CLASSMainWindowENDCLASS_t {
     char stringdata14[25];
     char stringdata15[6];
     char stringdata16[21];
-    char stringdata17[11];
-    char stringdata18[13];
-    char stringdata19[12];
-    char stringdata20[8];
-    char stringdata21[19];
-    char stringdata22[20];
-    char stringdata23[20];
-    char stringdata24[21];
-    char stringdata25[21];
-    char stringdata26[31];
-    char stringdata27[6];
-    char stringdata28[23];
-    char stringdata29[16];
-    char stringdata30[24];
-    char stringdata31[21];
-    char stringdata32[6];
-    char stringdata33[9];
-    char stringdata34[22];
-    char stringdata35[16];
-    char stringdata36[16];
+    char stringdata17[19];
+    char stringdata18[20];
+    char stringdata19[20];
+    char stringdata20[21];
+    char stringdata21[21];
+    char stringdata22[31];
+    char stringdata23[6];
+    char stringdata24[23];
+    char stringdata25[16];
+    char stringdata26[24];
+    char stringdata27[21];
+    char stringdata28[6];
+    char stringdata29[9];
+    char stringdata30[22];
+    char stringdata31[16];
+    char stringdata32[16];
+    char stringdata33[18];
+    char stringdata34[7];
+    char stringdata35[17];
+    char stringdata36[8];
     char stringdata37[18];
-    char stringdata38[7];
-    char stringdata39[17];
-    char stringdata40[8];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_CLASSMainWindowENDCLASS_t::offsetsAndSizes) + ofs), len 
@@ -148,30 +142,27 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSMainWindowENDCLASS_t qt_meta_st
         QT_MOC_LITERAL(161, 24),  // "updateBatteryProgressBar"
         QT_MOC_LITERAL(186, 5),  // "power"
         QT_MOC_LITERAL(192, 20),  // "updateHistoricalData"
-        QT_MOC_LITERAL(213, 10),  // "busVoltage"
-        QT_MOC_LITERAL(224, 12),  // "shuntVoltage"
-        QT_MOC_LITERAL(237, 11),  // "loadVoltage"
-        QT_MOC_LITERAL(249, 7),  // "current"
-        QT_MOC_LITERAL(257, 18),  // "on_button0_clicked"
-        QT_MOC_LITERAL(276, 19),  // "on_button45_clicked"
-        QT_MOC_LITERAL(296, 19),  // "on_button90_clicked"
-        QT_MOC_LITERAL(316, 20),  // "on_button135_clicked"
-        QT_MOC_LITERAL(337, 20),  // "on_button180_clicked"
-        QT_MOC_LITERAL(358, 30),  // "on_verticalSlider_valueChanged"
-        QT_MOC_LITERAL(389, 5),  // "value"
-        QT_MOC_LITERAL(395, 22),  // "on_button_auto_clicked"
-        QT_MOC_LITERAL(418, 15),  // "updateServoAuto"
-        QT_MOC_LITERAL(434, 23),  // "clearOldDetectionPoints"
-        QT_MOC_LITERAL(458, 20),  // "updateDetectionPoint"
-        QT_MOC_LITERAL(479, 5),  // "angle"
-        QT_MOC_LITERAL(485, 8),  // "distance"
-        QT_MOC_LITERAL(494, 21),  // "handleLaserActivation"
-        QT_MOC_LITERAL(516, 15),  // "deactivateLaser"
-        QT_MOC_LITERAL(532, 15),  // "resumeOperation"
-        QT_MOC_LITERAL(548, 17),  // "updateLaserStatus"
-        QT_MOC_LITERAL(566, 6),  // "status"
-        QT_MOC_LITERAL(573, 16),  // "setSliderEnabled"
-        QT_MOC_LITERAL(590, 7)   // "enabled"
+        QT_MOC_LITERAL(213, 18),  // "on_button0_clicked"
+        QT_MOC_LITERAL(232, 19),  // "on_button45_clicked"
+        QT_MOC_LITERAL(252, 19),  // "on_button90_clicked"
+        QT_MOC_LITERAL(272, 20),  // "on_button135_clicked"
+        QT_MOC_LITERAL(293, 20),  // "on_button180_clicked"
+        QT_MOC_LITERAL(314, 30),  // "on_verticalSlider_valueChanged"
+        QT_MOC_LITERAL(345, 5),  // "value"
+        QT_MOC_LITERAL(351, 22),  // "on_button_auto_clicked"
+        QT_MOC_LITERAL(374, 15),  // "updateServoAuto"
+        QT_MOC_LITERAL(390, 23),  // "clearOldDetectionPoints"
+        QT_MOC_LITERAL(414, 20),  // "updateDetectionPoint"
+        QT_MOC_LITERAL(435, 5),  // "angle"
+        QT_MOC_LITERAL(441, 8),  // "distance"
+        QT_MOC_LITERAL(450, 21),  // "handleLaserActivation"
+        QT_MOC_LITERAL(472, 15),  // "deactivateLaser"
+        QT_MOC_LITERAL(488, 15),  // "resumeOperation"
+        QT_MOC_LITERAL(504, 17),  // "updateLaserStatus"
+        QT_MOC_LITERAL(522, 6),  // "status"
+        QT_MOC_LITERAL(529, 16),  // "setSliderEnabled"
+        QT_MOC_LITERAL(546, 7),  // "enabled"
+        QT_MOC_LITERAL(554, 17)   // "updateCurrentTime"
     },
     "MainWindow",
     "moveForward",
@@ -190,10 +181,6 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSMainWindowENDCLASS_t qt_meta_st
     "updateBatteryProgressBar",
     "power",
     "updateHistoricalData",
-    "busVoltage",
-    "shuntVoltage",
-    "loadVoltage",
-    "current",
     "on_button0_clicked",
     "on_button45_clicked",
     "on_button90_clicked",
@@ -213,7 +200,8 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSMainWindowENDCLASS_t qt_meta_st
     "updateLaserStatus",
     "status",
     "setSliderEnabled",
-    "enabled"
+    "enabled",
+    "updateCurrentTime"
 };
 #undef QT_MOC_LITERAL
 #endif // !QT_MOC_HAS_STRING_DATA
@@ -225,7 +213,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      27,   14, // methods
+      28,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -233,33 +221,34 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,  176,    2, 0x08,    1 /* Private */,
-       3,    0,  177,    2, 0x08,    2 /* Private */,
-       4,    0,  178,    2, 0x08,    3 /* Private */,
-       5,    0,  179,    2, 0x08,    4 /* Private */,
-       6,    0,  180,    2, 0x08,    5 /* Private */,
-       7,    0,  181,    2, 0x08,    6 /* Private */,
-       8,    1,  182,    2, 0x08,    7 /* Private */,
-      10,    0,  185,    2, 0x08,    9 /* Private */,
-      11,    1,  186,    2, 0x08,   10 /* Private */,
-      13,    1,  189,    2, 0x08,   12 /* Private */,
-      14,    1,  192,    2, 0x08,   14 /* Private */,
-      16,    5,  195,    2, 0x08,   16 /* Private */,
-      21,    0,  206,    2, 0x08,   22 /* Private */,
-      22,    0,  207,    2, 0x08,   23 /* Private */,
-      23,    0,  208,    2, 0x08,   24 /* Private */,
-      24,    0,  209,    2, 0x08,   25 /* Private */,
-      25,    0,  210,    2, 0x08,   26 /* Private */,
-      26,    1,  211,    2, 0x08,   27 /* Private */,
-      28,    0,  214,    2, 0x08,   29 /* Private */,
-      29,    0,  215,    2, 0x08,   30 /* Private */,
-      30,    0,  216,    2, 0x08,   31 /* Private */,
-      31,    2,  217,    2, 0x08,   32 /* Private */,
-      34,    0,  222,    2, 0x08,   35 /* Private */,
-      35,    0,  223,    2, 0x08,   36 /* Private */,
-      36,    0,  224,    2, 0x08,   37 /* Private */,
-      37,    1,  225,    2, 0x08,   38 /* Private */,
-      39,    1,  228,    2, 0x08,   40 /* Private */,
+       1,    0,  182,    2, 0x08,    1 /* Private */,
+       3,    0,  183,    2, 0x08,    2 /* Private */,
+       4,    0,  184,    2, 0x08,    3 /* Private */,
+       5,    0,  185,    2, 0x08,    4 /* Private */,
+       6,    0,  186,    2, 0x08,    5 /* Private */,
+       7,    0,  187,    2, 0x08,    6 /* Private */,
+       8,    1,  188,    2, 0x08,    7 /* Private */,
+      10,    0,  191,    2, 0x08,    9 /* Private */,
+      11,    1,  192,    2, 0x08,   10 /* Private */,
+      13,    1,  195,    2, 0x08,   12 /* Private */,
+      14,    1,  198,    2, 0x08,   14 /* Private */,
+      16,    0,  201,    2, 0x08,   16 /* Private */,
+      17,    0,  202,    2, 0x08,   17 /* Private */,
+      18,    0,  203,    2, 0x08,   18 /* Private */,
+      19,    0,  204,    2, 0x08,   19 /* Private */,
+      20,    0,  205,    2, 0x08,   20 /* Private */,
+      21,    0,  206,    2, 0x08,   21 /* Private */,
+      22,    1,  207,    2, 0x08,   22 /* Private */,
+      24,    0,  210,    2, 0x08,   24 /* Private */,
+      25,    0,  211,    2, 0x08,   25 /* Private */,
+      26,    0,  212,    2, 0x08,   26 /* Private */,
+      27,    2,  213,    2, 0x08,   27 /* Private */,
+      30,    0,  218,    2, 0x08,   30 /* Private */,
+      31,    0,  219,    2, 0x08,   31 /* Private */,
+      32,    0,  220,    2, 0x08,   32 /* Private */,
+      33,    1,  221,    2, 0x08,   33 /* Private */,
+      35,    1,  224,    2, 0x08,   35 /* Private */,
+      37,    0,  227,    2, 0x08,   37 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -273,22 +262,23 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
     QMetaType::Void, QMetaType::QString,   12,
     QMetaType::Void, QMetaType::QString,   12,
     QMetaType::Void, QMetaType::Float,   15,
-    QMetaType::Void, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Float,   17,   18,   19,   20,   15,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,   27,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,   23,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Float, QMetaType::Float,   32,   33,
+    QMetaType::Void, QMetaType::Float, QMetaType::Float,   28,   29,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,   38,
-    QMetaType::Void, QMetaType::Bool,   40,
+    QMetaType::Void, QMetaType::QString,   34,
+    QMetaType::Void, QMetaType::Bool,   36,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -330,11 +320,6 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<float, std::false_type>,
         // method 'updateHistoricalData'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<float, std::false_type>,
-        QtPrivate::TypeAndForceComplete<float, std::false_type>,
-        QtPrivate::TypeAndForceComplete<float, std::false_type>,
-        QtPrivate::TypeAndForceComplete<float, std::false_type>,
-        QtPrivate::TypeAndForceComplete<float, std::false_type>,
         // method 'on_button0_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_button45_clicked'
@@ -369,7 +354,9 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
         // method 'setSliderEnabled'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<bool, std::false_type>
+        QtPrivate::TypeAndForceComplete<bool, std::false_type>,
+        // method 'updateCurrentTime'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
 } };
@@ -391,7 +378,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 8: _t->processRadarData((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
         case 9: _t->processBatteryData((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
         case 10: _t->updateBatteryProgressBar((*reinterpret_cast< std::add_pointer_t<float>>(_a[1]))); break;
-        case 11: _t->updateHistoricalData((*reinterpret_cast< std::add_pointer_t<float>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<float>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<float>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<float>>(_a[4])),(*reinterpret_cast< std::add_pointer_t<float>>(_a[5]))); break;
+        case 11: _t->updateHistoricalData(); break;
         case 12: _t->on_button0_clicked(); break;
         case 13: _t->on_button45_clicked(); break;
         case 14: _t->on_button90_clicked(); break;
@@ -407,6 +394,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 24: _t->resumeOperation(); break;
         case 25: _t->updateLaserStatus((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
         case 26: _t->setSliderEnabled((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
+        case 27: _t->updateCurrentTime(); break;
         default: ;
         }
     }
@@ -431,13 +419,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 27)
+        if (_id < 28)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 27;
+        _id -= 28;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 27)
+        if (_id < 28)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 27;
+        _id -= 28;
     }
     return _id;
 }

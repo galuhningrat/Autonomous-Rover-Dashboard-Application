@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
     , batterySerial(new QSerialPort(this))
     , batteryTimer(new QTimer(this))
-    , maxExpectedPower(5000.0)
+    , maxExpectedPower(1470.0)
     , batteryDataBuffer()
     , r(445.0)
     , angleOffset(0.05)
@@ -82,6 +82,16 @@ MainWindow::MainWindow(QWidget *parent)
 
     resumeTimer = new QTimer(this);
     connect(resumeTimer, &QTimer::timeout, this, &MainWindow::resumeOperation);
+
+    // Setup data update timer
+    dataUpdateTimer = new QTimer(this);
+    connect(dataUpdateTimer, &QTimer::timeout, this, &MainWindow::updateHistoricalData);
+    dataUpdateTimer->start(2000);  // Update setiap 2 detik
+
+    // Setup current time display
+    QTimer *timeTimer = new QTimer(this);
+    connect(timeTimer, &QTimer::timeout, this, &MainWindow::updateCurrentTime);
+    timeTimer->start(1000);  // Update setiap detik
 
     // Connect signals and slots
     connect(ui->forwardButton, &QPushButton::pressed, this, &MainWindow::moveForward);
@@ -211,6 +221,11 @@ void MainWindow::processRadarData(const QString &data) {
     }
 }
 
+void MainWindow::updateCurrentTime() {
+    QDateTime currentTime = QDateTime::currentDateTime();
+    ui->currentTimeLabel_3->setText(currentTime.toString("hh:mm:ss"));
+}
+
 void MainWindow::processBatteryData(const QString &data) {
     QStringList parts = data.split(',');
     if (parts.size() == 6) {
@@ -220,47 +235,34 @@ void MainWindow::processBatteryData(const QString &data) {
         float current = parts[4].toFloat();
         float power = parts[5].toFloat();
 
+        // Update real-time labels
         ui->busVoltageLabel->setText(QString::number(busVoltage, 'f', 2) + " V");
         ui->shuntVoltageLabel->setText(QString::number(shuntVoltage, 'f', 2) + " mV");
         ui->loadVoltageLabel->setText(QString::number(loadVoltage, 'f', 2) + " V");
         ui->currentLabel->setText(QString::number(current, 'f', 2) + " mA");
         ui->powerLabel->setText(QString::number(power, 'f', 2) + " mW");
 
+        // Add to historical data
+        QDateTime currentTime = QDateTime::currentDateTime();
+        QString timeString = currentTime.toString("hh:mm:ss");
+        QString historicalEntry = QString("%1,%2,%3,%4,%5,%6").arg(timeString)
+                                      .arg(busVoltage)
+                                      .arg(shuntVoltage)
+                                      .arg(loadVoltage)
+                                      .arg(current)
+                                      .arg(power);
+        historicalData.prepend(historicalEntry);
+        if (historicalData.size() > 10) {
+            historicalData.removeLast();
+        }
+
         updateBatteryProgressBar(power);
-        updateHistoricalData(busVoltage, shuntVoltage, loadVoltage, current, power);
     }
 }
 
-
-/* void MainWindow::processBatteryData(const QString &line) {
-    QStringList parts = line.split(':');
-    if (parts.size() == 2) {
-        QString key = parts[0].trimmed();
-        QString value = parts[1].trimmed();
-
-        if (key == "Bus Voltage") {
-            ui->busVoltageLabel->setText(value);
-        } else if (key == "Shunt Voltage") {
-            ui->shuntVoltageLabel->setText(value);
-        } else if (key == "Load Voltage") {
-            ui->loadVoltageLabel->setText(value);
-        } else if (key == "Current") {
-            ui->currentLabel->setText(value);
-        } else if (key == "Power") {
-            ui->powerLabel->setText(value);
-
-            float power = value.split(' ')[0].toFloat();
-            int percentage = qRound((power / maxExpectedPower) * 100);
-            percentage = qMin(percentage, 100);
-            powerProgressBar->setValue(percentage);
-            powerProgressBar->setFormat(QString("%1% (%2mW / %3mW)").arg(percentage).arg(power, 0, 'f', 1).arg(maxExpectedPower, 0, 'f', 1));
-        }
-    }
-} */
-
 void MainWindow::updateBatteryProgressBar(float power) {
     int percentage = qRound((power / maxExpectedPower) * 100);
-    percentage = qMin(percentage, 100);  // Memastikan persentase tidak melebihi 100%
+    percentage = qMin(percentage, 100);
     ui->persentase->setValue(percentage);
     ui->persentase->setFormat(QString("%1% (%2mW / %3mW)")
                                   .arg(percentage)
@@ -268,35 +270,55 @@ void MainWindow::updateBatteryProgressBar(float power) {
                                   .arg(maxExpectedPower, 0, 'f', 1));
 }
 
-void MainWindow::updateHistoricalData(float busVoltage, float shuntVoltage, float loadVoltage, float current, float power) {
-    QDateTime currentTime = QDateTime::currentDateTime();
-    QString timeString = currentTime.toString("hh:mm:ss");
+void MainWindow::updateHistoricalData() {
+    // Geser data dari baris 9 ke baris 10, 8 ke 9, dst.
+    for (int i = 10; i > 1; --i) {
+        QLabel* timeLabel = findChild<QLabel*>(QString("historicalTimeLabel%1_2").arg(i));
+        QLabel* busVoltageLabel = findChild<QLabel*>(QString("historicalBusVoltageLabel%1_2").arg(i));
+        QLabel* shuntVoltageLabel = findChild<QLabel*>(QString("historicalShuntVoltageLabel%1_2").arg(i));
+        QLabel* loadVoltageLabel = findChild<QLabel*>(QString("historicalLoadVoltageLabel%1_2").arg(i));
+        QLabel* currentLabel = findChild<QLabel*>(QString("historicalCurrentLabel%1_2").arg(i));
+        QLabel* powerLabel = findChild<QLabel*>(QString("historicalPowerLabel%1_2").arg(i));
 
-    // Geser data lama ke bawah
-    for (int i = 6; i > 0; i--) {
-        QLayoutItem* item = ui->historicalDataLayout1_2->itemAt(i);
-        if (item) {
-            QLabel* label = qobject_cast<QLabel*>(item->widget());
-            if (label) {
-                QString text = label->text();
-                QLayoutItem* nextItem = ui->historicalDataLayout2_2->itemAt(i);
-                if (nextItem) {
-                    QLabel* nextLabel = qobject_cast<QLabel*>(nextItem->widget());
-                    if (nextLabel) {
-                        nextLabel->setText(text);
-                    }
-                }
-            }
+        QLabel* prevTimeLabel = findChild<QLabel*>(QString("historicalTimeLabel%1_2").arg(i-1));
+        QLabel* prevBusVoltageLabel = findChild<QLabel*>(QString("historicalBusVoltageLabel%1_2").arg(i-1));
+        QLabel* prevShuntVoltageLabel = findChild<QLabel*>(QString("historicalShuntVoltageLabel%1_2").arg(i-1));
+        QLabel* prevLoadVoltageLabel = findChild<QLabel*>(QString("historicalLoadVoltageLabel%1_2").arg(i-1));
+        QLabel* prevCurrentLabel = findChild<QLabel*>(QString("historicalCurrentLabel%1_2").arg(i-1));
+        QLabel* prevPowerLabel = findChild<QLabel*>(QString("historicalPowerLabel%1_2").arg(i-1));
+
+        if (timeLabel && busVoltageLabel && shuntVoltageLabel && loadVoltageLabel && currentLabel && powerLabel &&
+            prevTimeLabel && prevBusVoltageLabel && prevShuntVoltageLabel && prevLoadVoltageLabel && prevCurrentLabel && prevPowerLabel) {
+            timeLabel->setText(prevTimeLabel->text());
+            busVoltageLabel->setText(prevBusVoltageLabel->text());
+            shuntVoltageLabel->setText(prevShuntVoltageLabel->text());
+            loadVoltageLabel->setText(prevLoadVoltageLabel->text());
+            currentLabel->setText(prevCurrentLabel->text());
+            powerLabel->setText(prevPowerLabel->text());
         }
     }
 
-    // Tambahkan data baru ke baris pertama
-    ui->historicalTimeLabel1_2->setText(timeString);
-    ui->historicalBusVoltageLabel1_2->setText(QString::number(busVoltage, 'f', 2) + " V");
-    ui->historicalShuntVoltageLabel1_2->setText(QString::number(shuntVoltage, 'f', 2) + " mV");
-    ui->historicalLoadVoltageLabel1_2->setText(QString::number(loadVoltage, 'f', 2) + " V");
-    ui->historicalCurrentLabel1_2->setText(QString::number(current, 'f', 2) + " mA");
-    ui->historicalPowerLabel1_2->setText(QString::number(power, 'f', 2) + " mW");
+    // Update baris pertama dengan data terbaru
+    if (!historicalData.isEmpty()) {
+        QStringList data = historicalData.first().split(',');
+        if (data.size() == 6) {
+            QLabel* timeLabel = findChild<QLabel*>("historicalTimeLabel1_2");
+            QLabel* busVoltageLabel = findChild<QLabel*>("historicalBusVoltageLabel1_2");
+            QLabel* shuntVoltageLabel = findChild<QLabel*>("historicalShuntVoltageLabel1_2");
+            QLabel* loadVoltageLabel = findChild<QLabel*>("historicalLoadVoltageLabel1_2");
+            QLabel* currentLabel = findChild<QLabel*>("historicalCurrentLabel1_2");
+            QLabel* powerLabel = findChild<QLabel*>("historicalPowerLabel1_2");
+
+            if (timeLabel && busVoltageLabel && shuntVoltageLabel && loadVoltageLabel && currentLabel && powerLabel) {
+                timeLabel->setText(data[0]);
+                busVoltageLabel->setText(data[1] + " V");
+                shuntVoltageLabel->setText(data[2] + " mV");
+                loadVoltageLabel->setText(data[3] + " V");
+                currentLabel->setText(data[4] + " mA");
+                powerLabel->setText(data[5] + " mW");
+            }
+        }
+    }
 }
 
 void MainWindow::setSliderEnabled(bool enabled) {
@@ -307,27 +329,6 @@ void MainWindow::setSliderEnabled(bool enabled) {
 }
 
 void MainWindow::handleLaserActivation() {
-    /* laserActive = true;
-    previousAutoMode = autoMode;
-    previousSliderState = ui->verticalSlider->isEnabled();
-
-    if (autoMode) {
-        autoTimer->stop();
-        autoMode = false;
-    }
-
-    setSliderEnabled(false);
-    updateLaserStatus("Laser: On");
-    arduino->write("LASER_ON\n");
-    laserTimer->start(2000); */
-
-    /* if (!laserActive) {
-        laserActive = true;
-        updateLaserStatus("Laser: On");
-        arduino->write("LASER_ON\n");
-        laserTimer->start(2000);  // Timer untuk mematikan laser setelah 2 detik
-    } */
-
     if (!laserActive) {
         laserActive = true;
         previousAutoMode = autoMode;
@@ -354,33 +355,6 @@ void MainWindow::deactivateLaser() {
 }
 
 void MainWindow::resumeOperation() {
-    /* laserActive = false;
-    updateLaserStatus("Laser: Off");
-    arduino->write("LASER_OFF\n");
-
-    if (previousAutoMode) {
-        autoMode = true;
-        autoTimer->start(50);
-        arduino->write("AUTO\n");
-    } else {
-        arduino->write("MANUAL\n");
-    }
-
-    setSliderEnabled(previousSliderState);
-
-    if (autoMode) {
-        ui->button_auto->setText("Stop Auto");
-    } else {
-        ui->button_auto->setText("Start Auto");
-    } */
-
-    /* resumeTimer->stop();
-    if (autoMode) {
-        arduino->write("AUTO\n");
-    } else {
-        arduino->write("MANUAL\n");
-    } */
-
     resumeTimer->stop();
 
     if (previousAutoMode) {
@@ -434,18 +408,6 @@ void MainWindow::updateServoAuto() {
     updateServo(QString::number(angle) + "\n");
     ui->verticalSlider->setValue(angle);
 }
-
-/*    updateServo(QString::number(angle) + "\n");
-    ui->verticalSlider->setValue(angle);
-
-    // Memperbarui sapuan radar
-    float radAngle = qDegreesToRadians(static_cast<float>(angle));
-    QPolygonF newTriangle;
-    newTriangle.append(QPointF(r * qCos(radAngle + angleOffset) + 505, -r * qSin(radAngle + angleOffset) + 495));
-    newTriangle.append(QPointF(505, 495));
-    newTriangle.append(QPointF(r * qCos(radAngle - angleOffset) + 505, -r * qSin(radAngle - angleOffset) + 495));
-    needle->setPolygon(newTriangle);
-} */
 
 void MainWindow::updateDetectionPoint(float angle, float distance) {
     qDebug() << "Updating detection point at angle:" << angle << "distance:" << distance;
@@ -522,7 +484,7 @@ void MainWindow::on_verticalSlider_valueChanged(int value) {
 
 void MainWindow::on_button_auto_clicked() {
     if (laserActive) {
-        return;  // Mencegah perubahan mode saat laser aktif
+        return;
     }
 
     autoMode = !autoMode;

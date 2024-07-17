@@ -42,9 +42,9 @@ public:
     QPushButton *forwardButton;
     QPushButton *rightButton;
     QPushButton *leftButton;
+    QProgressBar *persentase;
     QLabel *cameraLabel;
     QLabel *accelerometerLabel;
-    QProgressBar *persentase;
     QLabel *imuLabel;
     QLabel *ultrasonicLabel;
     QLabel *gpsLabel;
@@ -61,26 +61,31 @@ public:
     QPushButton *button0;
     QSlider *verticalSlider;
     QPushButton *button45;
-    QProgressBar *batteryProgressBar;
     QWidget *layoutWidget1;
     QWidget *layoutWidget_14;
     QHBoxLayout *horizontalLayout_3;
     QVBoxLayout *verticalLayoutTime_2;
     QLabel *currentTimeLabel_2;
-    QLabel *currentTimeValue_2;
+    QLabel *currentTimeLabel_3;
+    QLabel *label_8;
     QVBoxLayout *verticalLayoutVoltage_2;
+    QLabel *label_3;
     QLabel *busVoltageLabel;
     QLabel *currentBusVoltageValue_2;
     QVBoxLayout *verticalLayoutCurrent_2;
+    QLabel *label_4;
     QLabel *shuntVoltageLabel;
     QLabel *currentShuntVoltageValue_2;
     QVBoxLayout *verticalLayoutPower_2;
+    QLabel *label_5;
     QLabel *loadVoltageLabel;
     QLabel *currentLoadVoltageValue_2;
     QVBoxLayout *verticalLayoutEnergy_2;
+    QLabel *label_6;
     QLabel *currentLabel;
     QLabel *currentCurrentValue_2;
     QVBoxLayout *verticalLayoutFrequency_2;
+    QLabel *label_7;
     QLabel *powerLabel;
     QLabel *currentPowerValue_2;
     QLabel *label_2;
@@ -182,14 +187,14 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(1560, 1063);
-        MainWindow->setMaximumSize(QSize(1560, 1200));
+        MainWindow->resize(1800, 1063);
+        MainWindow->setMaximumSize(QSize(1800, 1200));
         MainWindow->setWindowOpacity(1.000000000000000);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         widget = new QWidget(centralwidget);
         widget->setObjectName("widget");
-        widget->setGeometry(QRect(10, 10, 281, 361));
+        widget->setGeometry(QRect(830, 520, 281, 361));
         layoutWidget = new QWidget(widget);
         layoutWidget->setObjectName("layoutWidget");
         layoutWidget->setGeometry(QRect(10, 10, 258, 332));
@@ -226,6 +231,12 @@ public:
 
         verticalLayout->addLayout(gridLayout);
 
+        persentase = new QProgressBar(layoutWidget);
+        persentase->setObjectName("persentase");
+        persentase->setValue(0);
+
+        verticalLayout->addWidget(persentase);
+
         cameraLabel = new QLabel(layoutWidget);
         cameraLabel->setObjectName("cameraLabel");
 
@@ -235,12 +246,6 @@ public:
         accelerometerLabel->setObjectName("accelerometerLabel");
 
         verticalLayout->addWidget(accelerometerLabel);
-
-        persentase = new QProgressBar(layoutWidget);
-        persentase->setObjectName("persentase");
-        persentase->setValue(0);
-
-        verticalLayout->addWidget(persentase);
 
         imuLabel = new QLabel(layoutWidget);
         imuLabel->setObjectName("imuLabel");
@@ -259,7 +264,7 @@ public:
 
         rangeLabel = new QLabel(centralwidget);
         rangeLabel->setObjectName("rangeLabel");
-        rangeLabel->setGeometry(QRect(330, 420, 175, 45));
+        rangeLabel->setGeometry(QRect(1180, 960, 175, 45));
         rangeLabel->setMaximumSize(QSize(175, 45));
         QFont font;
         font.setFamilies({QString::fromUtf8("Times New Roman")});
@@ -267,21 +272,22 @@ public:
         rangeLabel->setFont(font);
         button180 = new QPushButton(centralwidget);
         button180->setObjectName("button180");
-        button180->setGeometry(QRect(300, 170, 61, 32));
+        button180->setGeometry(QRect(1150, 690, 61, 32));
         QFont font1;
         font1.setFamilies({QString::fromUtf8("Times New Roman")});
         font1.setPointSize(11);
         button180->setFont(font1);
         angleLabel = new QLabel(centralwidget);
         angleLabel->setObjectName("angleLabel");
-        angleLabel->setGeometry(QRect(380, 310, 81, 45));
+        angleLabel->setGeometry(QRect(1210, 850, 101, 45));
         angleLabel->setMaximumSize(QSize(150, 45));
         angleLabel->setFont(font);
         angleLabel->setAutoFillBackground(false);
         graphicsView = new QGraphicsView(centralwidget);
         graphicsView->setObjectName("graphicsView");
-        graphicsView->setGeometry(QRect(540, 0, 1000, 531));
+        graphicsView->setGeometry(QRect(800, 0, 1000, 515));
         graphicsView->setMinimumSize(QSize(1000, 515));
+        graphicsView->setMaximumSize(QSize(1000, 515));
         QPalette palette;
         QBrush brush(QColor(255, 255, 255, 255));
         brush.setStyle(Qt::SolidPattern);
@@ -353,11 +359,11 @@ public:
         graphicsView->setPalette(palette);
         button135 = new QPushButton(centralwidget);
         button135->setObjectName("button135");
-        button135->setGeometry(QRect(300, 130, 61, 32));
+        button135->setGeometry(QRect(1150, 650, 61, 32));
         button135->setFont(font1);
         label = new QLabel(centralwidget);
         label->setObjectName("label");
-        label->setGeometry(QRect(370, 270, 150, 41));
+        label->setGeometry(QRect(1220, 810, 150, 41));
         label->setMinimumSize(QSize(150, 25));
         QFont font2;
         font2.setFamilies({QString::fromUtf8("Times New Roman")});
@@ -367,21 +373,21 @@ public:
         label->setFont(font2);
         button90 = new QPushButton(centralwidget);
         button90->setObjectName("button90");
-        button90->setGeometry(QRect(300, 90, 61, 32));
+        button90->setGeometry(QRect(1150, 610, 61, 32));
         button90->setFont(font1);
         textEdit = new QTextEdit(centralwidget);
         textEdit->setObjectName("textEdit");
-        textEdit->setGeometry(QRect(300, 500, 61, 31));
+        textEdit->setGeometry(QRect(1150, 770, 61, 31));
         QFont font3;
         font3.setFamilies({QString::fromUtf8("Times New Roman")});
         textEdit->setFont(font3);
         button_auto = new QPushButton(centralwidget);
         button_auto->setObjectName("button_auto");
-        button_auto->setGeometry(QRect(300, 210, 101, 31));
+        button_auto->setGeometry(QRect(1150, 730, 101, 31));
         button_auto->setFont(font1);
         lablel_2 = new QLabel(centralwidget);
         lablel_2->setObjectName("lablel_2");
-        lablel_2->setGeometry(QRect(370, 380, 150, 41));
+        lablel_2->setGeometry(QRect(1220, 920, 150, 41));
         lablel_2->setMinimumSize(QSize(150, 25));
         QFont font4;
         font4.setFamilies({QString::fromUtf8("Times New Roman")});
@@ -390,11 +396,11 @@ public:
         lablel_2->setFont(font4);
         button0 = new QPushButton(centralwidget);
         button0->setObjectName("button0");
-        button0->setGeometry(QRect(300, 10, 61, 32));
+        button0->setGeometry(QRect(1150, 530, 61, 32));
         button0->setFont(font1);
         verticalSlider = new QSlider(centralwidget);
         verticalSlider->setObjectName("verticalSlider");
-        verticalSlider->setGeometry(QRect(420, 10, 100, 200));
+        verticalSlider->setGeometry(QRect(1270, 530, 100, 200));
         verticalSlider->setMinimumSize(QSize(100, 200));
         QFont font5;
         font5.setFamilies({QString::fromUtf8("Arial")});
@@ -403,18 +409,14 @@ public:
         verticalSlider->setMaximum(180);
         button45 = new QPushButton(centralwidget);
         button45->setObjectName("button45");
-        button45->setGeometry(QRect(300, 50, 61, 32));
+        button45->setGeometry(QRect(1150, 570, 61, 32));
         button45->setFont(font1);
-        batteryProgressBar = new QProgressBar(centralwidget);
-        batteryProgressBar->setObjectName("batteryProgressBar");
-        batteryProgressBar->setGeometry(QRect(290, 1030, 221, 51));
-        batteryProgressBar->setValue(24);
         layoutWidget1 = new QWidget(centralwidget);
         layoutWidget1->setObjectName("layoutWidget1");
-        layoutWidget1->setGeometry(QRect(20, 530, 771, 71));
+        layoutWidget1->setGeometry(QRect(10, 30, 771, 71));
         layoutWidget_14 = new QWidget(layoutWidget1);
         layoutWidget_14->setObjectName("layoutWidget_14");
-        layoutWidget_14->setGeometry(QRect(10, 0, 741, 51));
+        layoutWidget_14->setGeometry(QRect(10, 0, 741, 78));
         horizontalLayout_3 = new QHBoxLayout(layoutWidget_14);
         horizontalLayout_3->setObjectName("horizontalLayout_3");
         horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
@@ -425,16 +427,26 @@ public:
 
         verticalLayoutTime_2->addWidget(currentTimeLabel_2);
 
-        currentTimeValue_2 = new QLabel(layoutWidget_14);
-        currentTimeValue_2->setObjectName("currentTimeValue_2");
+        currentTimeLabel_3 = new QLabel(layoutWidget_14);
+        currentTimeLabel_3->setObjectName("currentTimeLabel_3");
 
-        verticalLayoutTime_2->addWidget(currentTimeValue_2);
+        verticalLayoutTime_2->addWidget(currentTimeLabel_3);
+
+        label_8 = new QLabel(layoutWidget_14);
+        label_8->setObjectName("label_8");
+
+        verticalLayoutTime_2->addWidget(label_8);
 
 
         horizontalLayout_3->addLayout(verticalLayoutTime_2);
 
         verticalLayoutVoltage_2 = new QVBoxLayout();
         verticalLayoutVoltage_2->setObjectName("verticalLayoutVoltage_2");
+        label_3 = new QLabel(layoutWidget_14);
+        label_3->setObjectName("label_3");
+
+        verticalLayoutVoltage_2->addWidget(label_3);
+
         busVoltageLabel = new QLabel(layoutWidget_14);
         busVoltageLabel->setObjectName("busVoltageLabel");
 
@@ -450,6 +462,11 @@ public:
 
         verticalLayoutCurrent_2 = new QVBoxLayout();
         verticalLayoutCurrent_2->setObjectName("verticalLayoutCurrent_2");
+        label_4 = new QLabel(layoutWidget_14);
+        label_4->setObjectName("label_4");
+
+        verticalLayoutCurrent_2->addWidget(label_4);
+
         shuntVoltageLabel = new QLabel(layoutWidget_14);
         shuntVoltageLabel->setObjectName("shuntVoltageLabel");
 
@@ -465,6 +482,11 @@ public:
 
         verticalLayoutPower_2 = new QVBoxLayout();
         verticalLayoutPower_2->setObjectName("verticalLayoutPower_2");
+        label_5 = new QLabel(layoutWidget_14);
+        label_5->setObjectName("label_5");
+
+        verticalLayoutPower_2->addWidget(label_5);
+
         loadVoltageLabel = new QLabel(layoutWidget_14);
         loadVoltageLabel->setObjectName("loadVoltageLabel");
 
@@ -480,6 +502,11 @@ public:
 
         verticalLayoutEnergy_2 = new QVBoxLayout();
         verticalLayoutEnergy_2->setObjectName("verticalLayoutEnergy_2");
+        label_6 = new QLabel(layoutWidget_14);
+        label_6->setObjectName("label_6");
+
+        verticalLayoutEnergy_2->addWidget(label_6);
+
         currentLabel = new QLabel(layoutWidget_14);
         currentLabel->setObjectName("currentLabel");
 
@@ -495,6 +522,11 @@ public:
 
         verticalLayoutFrequency_2 = new QVBoxLayout();
         verticalLayoutFrequency_2->setObjectName("verticalLayoutFrequency_2");
+        label_7 = new QLabel(layoutWidget_14);
+        label_7->setObjectName("label_7");
+
+        verticalLayoutFrequency_2->addWidget(label_7);
+
         powerLabel = new QLabel(layoutWidget_14);
         powerLabel->setObjectName("powerLabel");
 
@@ -510,10 +542,10 @@ public:
 
         label_2 = new QLabel(centralwidget);
         label_2->setObjectName("label_2");
-        label_2->setGeometry(QRect(20, 510, 91, 20));
+        label_2->setGeometry(QRect(10, 10, 91, 20));
         centralwidget_2 = new QWidget(centralwidget);
         centralwidget_2->setObjectName("centralwidget_2");
-        centralwidget_2->setGeometry(QRect(20, 600, 771, 400));
+        centralwidget_2->setGeometry(QRect(10, 100, 771, 400));
         historicalDataGroupBox_2 = new QGroupBox(centralwidget_2);
         historicalDataGroupBox_2->setObjectName("historicalDataGroupBox_2");
         historicalDataGroupBox_2->setGeometry(QRect(0, 0, 771, 401));
@@ -919,7 +951,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 1560, 25));
+        menubar->setGeometry(QRect(0, 0, 1800, 25));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
@@ -953,15 +985,21 @@ public:
         button0->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
         button45->setText(QCoreApplication::translate("MainWindow", "45", nullptr));
         currentTimeLabel_2->setText(QCoreApplication::translate("MainWindow", "Time :", nullptr));
-        currentTimeValue_2->setText(QString());
+        currentTimeLabel_3->setText(QString());
+        label_8->setText(QString());
+        label_3->setText(QCoreApplication::translate("MainWindow", "Bus Voltage (V) :", nullptr));
         busVoltageLabel->setText(QCoreApplication::translate("MainWindow", "Bus Voltage (V) :", nullptr));
         currentBusVoltageValue_2->setText(QString());
+        label_4->setText(QCoreApplication::translate("MainWindow", "Shunt Voltage (mV) :", nullptr));
         shuntVoltageLabel->setText(QCoreApplication::translate("MainWindow", "Shunt Voltage (mV) :", nullptr));
         currentShuntVoltageValue_2->setText(QString());
+        label_5->setText(QCoreApplication::translate("MainWindow", "Load Voltage (V) :", nullptr));
         loadVoltageLabel->setText(QCoreApplication::translate("MainWindow", "Load Voltage (V) :", nullptr));
         currentLoadVoltageValue_2->setText(QString());
+        label_6->setText(QCoreApplication::translate("MainWindow", "Current (mA) :", nullptr));
         currentLabel->setText(QCoreApplication::translate("MainWindow", "Current (mA) :", nullptr));
         currentCurrentValue_2->setText(QString());
+        label_7->setText(QCoreApplication::translate("MainWindow", "Power (mW) :", nullptr));
         powerLabel->setText(QCoreApplication::translate("MainWindow", "Power (mW) :", nullptr));
         currentPowerValue_2->setText(QString());
         label_2->setText(QCoreApplication::translate("MainWindow", "Current Data", nullptr));

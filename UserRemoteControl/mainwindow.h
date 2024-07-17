@@ -36,7 +36,7 @@ private slots:
     void processRadarData(const QString &data);
     void processBatteryData(const QString &data);
     void updateBatteryProgressBar(float power);
-    void updateHistoricalData(float busVoltage, float shuntVoltage, float loadVoltage, float current, float power);
+    void updateHistoricalData(); //(float busVoltage, float shuntVoltage, float loadVoltage, float current, float power);
     void on_button0_clicked();
     void on_button45_clicked();
     void on_button90_clicked();
@@ -52,6 +52,7 @@ private slots:
     void resumeOperation();
     void updateLaserStatus(const QString &status);
     void setSliderEnabled(bool enabled);
+    void updateCurrentTime();
 
 private:
     Ui::MainWindow *ui;
@@ -62,6 +63,8 @@ private:
     float maxExpectedPower;
     QByteArray batteryDataBuffer;
     QString serialBuffer;
+    QStringList historicalData;
+    QTimer *dataUpdateTimer;
 
     QGraphicsScene *scene;
     QPixmap pix;
