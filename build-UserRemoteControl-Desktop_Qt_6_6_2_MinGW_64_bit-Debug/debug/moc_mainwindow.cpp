@@ -75,6 +75,7 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::string
     "angle",
     "distance",
     "handleLaserActivation",
+    "deactivateLaser",
     "resumeOperation",
     "updateLaserStatus",
     "status",
@@ -83,7 +84,7 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::string
 );
 #else  // !QT_MOC_HAS_STRING_DATA
 struct qt_meta_stringdata_CLASSMainWindowENDCLASS_t {
-    uint offsetsAndSizes[80];
+    uint offsetsAndSizes[82];
     char stringdata0[11];
     char stringdata1[12];
     char stringdata2[1];
@@ -120,10 +121,11 @@ struct qt_meta_stringdata_CLASSMainWindowENDCLASS_t {
     char stringdata33[9];
     char stringdata34[22];
     char stringdata35[16];
-    char stringdata36[18];
-    char stringdata37[7];
-    char stringdata38[17];
-    char stringdata39[8];
+    char stringdata36[16];
+    char stringdata37[18];
+    char stringdata38[7];
+    char stringdata39[17];
+    char stringdata40[8];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_CLASSMainWindowENDCLASS_t::offsetsAndSizes) + ofs), len 
@@ -164,11 +166,12 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSMainWindowENDCLASS_t qt_meta_st
         QT_MOC_LITERAL(479, 5),  // "angle"
         QT_MOC_LITERAL(485, 8),  // "distance"
         QT_MOC_LITERAL(494, 21),  // "handleLaserActivation"
-        QT_MOC_LITERAL(516, 15),  // "resumeOperation"
-        QT_MOC_LITERAL(532, 17),  // "updateLaserStatus"
-        QT_MOC_LITERAL(550, 6),  // "status"
-        QT_MOC_LITERAL(557, 16),  // "setSliderEnabled"
-        QT_MOC_LITERAL(574, 7)   // "enabled"
+        QT_MOC_LITERAL(516, 15),  // "deactivateLaser"
+        QT_MOC_LITERAL(532, 15),  // "resumeOperation"
+        QT_MOC_LITERAL(548, 17),  // "updateLaserStatus"
+        QT_MOC_LITERAL(566, 6),  // "status"
+        QT_MOC_LITERAL(573, 16),  // "setSliderEnabled"
+        QT_MOC_LITERAL(590, 7)   // "enabled"
     },
     "MainWindow",
     "moveForward",
@@ -205,6 +208,7 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSMainWindowENDCLASS_t qt_meta_st
     "angle",
     "distance",
     "handleLaserActivation",
+    "deactivateLaser",
     "resumeOperation",
     "updateLaserStatus",
     "status",
@@ -221,7 +225,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      26,   14, // methods
+      27,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -229,32 +233,33 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,  170,    2, 0x08,    1 /* Private */,
-       3,    0,  171,    2, 0x08,    2 /* Private */,
-       4,    0,  172,    2, 0x08,    3 /* Private */,
-       5,    0,  173,    2, 0x08,    4 /* Private */,
-       6,    0,  174,    2, 0x08,    5 /* Private */,
-       7,    0,  175,    2, 0x08,    6 /* Private */,
-       8,    1,  176,    2, 0x08,    7 /* Private */,
-      10,    0,  179,    2, 0x08,    9 /* Private */,
-      11,    1,  180,    2, 0x08,   10 /* Private */,
-      13,    1,  183,    2, 0x08,   12 /* Private */,
-      14,    1,  186,    2, 0x08,   14 /* Private */,
-      16,    5,  189,    2, 0x08,   16 /* Private */,
-      21,    0,  200,    2, 0x08,   22 /* Private */,
-      22,    0,  201,    2, 0x08,   23 /* Private */,
-      23,    0,  202,    2, 0x08,   24 /* Private */,
-      24,    0,  203,    2, 0x08,   25 /* Private */,
-      25,    0,  204,    2, 0x08,   26 /* Private */,
-      26,    1,  205,    2, 0x08,   27 /* Private */,
-      28,    0,  208,    2, 0x08,   29 /* Private */,
-      29,    0,  209,    2, 0x08,   30 /* Private */,
-      30,    0,  210,    2, 0x08,   31 /* Private */,
-      31,    2,  211,    2, 0x08,   32 /* Private */,
-      34,    0,  216,    2, 0x08,   35 /* Private */,
-      35,    0,  217,    2, 0x08,   36 /* Private */,
-      36,    1,  218,    2, 0x08,   37 /* Private */,
-      38,    1,  221,    2, 0x08,   39 /* Private */,
+       1,    0,  176,    2, 0x08,    1 /* Private */,
+       3,    0,  177,    2, 0x08,    2 /* Private */,
+       4,    0,  178,    2, 0x08,    3 /* Private */,
+       5,    0,  179,    2, 0x08,    4 /* Private */,
+       6,    0,  180,    2, 0x08,    5 /* Private */,
+       7,    0,  181,    2, 0x08,    6 /* Private */,
+       8,    1,  182,    2, 0x08,    7 /* Private */,
+      10,    0,  185,    2, 0x08,    9 /* Private */,
+      11,    1,  186,    2, 0x08,   10 /* Private */,
+      13,    1,  189,    2, 0x08,   12 /* Private */,
+      14,    1,  192,    2, 0x08,   14 /* Private */,
+      16,    5,  195,    2, 0x08,   16 /* Private */,
+      21,    0,  206,    2, 0x08,   22 /* Private */,
+      22,    0,  207,    2, 0x08,   23 /* Private */,
+      23,    0,  208,    2, 0x08,   24 /* Private */,
+      24,    0,  209,    2, 0x08,   25 /* Private */,
+      25,    0,  210,    2, 0x08,   26 /* Private */,
+      26,    1,  211,    2, 0x08,   27 /* Private */,
+      28,    0,  214,    2, 0x08,   29 /* Private */,
+      29,    0,  215,    2, 0x08,   30 /* Private */,
+      30,    0,  216,    2, 0x08,   31 /* Private */,
+      31,    2,  217,    2, 0x08,   32 /* Private */,
+      34,    0,  222,    2, 0x08,   35 /* Private */,
+      35,    0,  223,    2, 0x08,   36 /* Private */,
+      36,    0,  224,    2, 0x08,   37 /* Private */,
+      37,    1,  225,    2, 0x08,   38 /* Private */,
+      39,    1,  228,    2, 0x08,   40 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -281,8 +286,9 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
     QMetaType::Void, QMetaType::Float, QMetaType::Float,   32,   33,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,   37,
-    QMetaType::Void, QMetaType::Bool,   39,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,   38,
+    QMetaType::Void, QMetaType::Bool,   40,
 
        0        // eod
 };
@@ -354,6 +360,8 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<float, std::false_type>,
         // method 'handleLaserActivation'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'deactivateLaser'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'resumeOperation'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'updateLaserStatus'
@@ -395,9 +403,10 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 20: _t->clearOldDetectionPoints(); break;
         case 21: _t->updateDetectionPoint((*reinterpret_cast< std::add_pointer_t<float>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<float>>(_a[2]))); break;
         case 22: _t->handleLaserActivation(); break;
-        case 23: _t->resumeOperation(); break;
-        case 24: _t->updateLaserStatus((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 25: _t->setSliderEnabled((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
+        case 23: _t->deactivateLaser(); break;
+        case 24: _t->resumeOperation(); break;
+        case 25: _t->updateLaserStatus((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 26: _t->setSliderEnabled((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
         default: ;
         }
     }
@@ -422,13 +431,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 26)
+        if (_id < 27)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 26;
+        _id -= 27;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 26)
+        if (_id < 27)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 26;
+        _id -= 27;
     }
     return _id;
 }

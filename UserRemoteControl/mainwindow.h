@@ -48,6 +48,7 @@ private slots:
     void clearOldDetectionPoints();
     void updateDetectionPoint(float angle, float distance);
     void handleLaserActivation();
+    void deactivateLaser();
     void resumeOperation();
     void updateLaserStatus(const QString &status);
     void setSliderEnabled(bool enabled);
@@ -83,6 +84,7 @@ private:
     QTimer *autoTimer;
     bool laserActive;
     QTimer *laserTimer;
+    QTimer *resumeTimer;
     bool autoMode;
     bool previousAutoMode;
     bool previousSliderState;

@@ -20,11 +20,6 @@ float distance;
 int servoSetting;
 bool servoIncreasing = true;
 
-bool laserActive = false;
-unsigned long laserStartTime = 0;
-
-bool autoMode = false;  // Deklarasi variabel autoMode
-
 void setup() {
   // Serial
   Serial.begin(115200);
@@ -54,6 +49,11 @@ void setup() {
   ina219.setCalibration_32V_2A();
 }
 
+bool laserActive = false;
+unsigned long laserStartTime = 0;
+bool autoMode = false;
+bool servoStopped = false;
+
 void loop() {
   getDistance();
   readSerialCommand();
@@ -67,7 +67,7 @@ void loop() {
     Serial.println("LASER_DEACTIVATED");
   }
 
-  if (!laserActive) {
+  if (!laserActive && !servoStopped) {
     if (autoMode) {
       updateServoAuto();
     }
@@ -79,6 +79,7 @@ void loop() {
 
 void activateLaser() {
   laserActive = true;
+  servoStopped = true;
   laserStartTime = millis();
   digitalWrite(laserPin, HIGH);
   myservo.write(myservo.read()); // Hentikan servo
@@ -87,6 +88,8 @@ void activateLaser() {
 void deactivateLaser() {
   laserActive = false;
   digitalWrite(laserPin, LOW);
+  delay(1000); // Tunggu 1 detik sebelum melanjutkan operasi normal
+  servoStopped = false;
 }
 
 void updateServoAuto() {
