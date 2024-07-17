@@ -82,7 +82,7 @@ void activateLaser() {
   servoStopped = true;
   laserStartTime = millis();
   digitalWrite(laserPin, HIGH);
-  myservo.write(myservo.read()); // Hentikan servo
+ //  myservo.write(myservo.read()); // Hentikan servo
 }
 
 void deactivateLaser() {

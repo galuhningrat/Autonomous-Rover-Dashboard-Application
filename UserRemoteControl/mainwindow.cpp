@@ -78,7 +78,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(autoTimer, &QTimer::timeout, this, &MainWindow::updateServoAuto);
 
     laserTimer = new QTimer(this);
-    connect(laserTimer, &QTimer::timeout, this, &MainWindow::handleLaserActivation);
+    connect(laserTimer, &QTimer::timeout, this, &MainWindow::deactivateLaser);
 
     resumeTimer = new QTimer(this);
     connect(resumeTimer, &QTimer::timeout, this, &MainWindow::resumeOperation);
@@ -321,8 +321,24 @@ void MainWindow::handleLaserActivation() {
     arduino->write("LASER_ON\n");
     laserTimer->start(2000); */
 
+    /* if (!laserActive) {
+        laserActive = true;
+        updateLaserStatus("Laser: On");
+        arduino->write("LASER_ON\n");
+        laserTimer->start(2000);  // Timer untuk mematikan laser setelah 2 detik
+    } */
+
     if (!laserActive) {
         laserActive = true;
+        previousAutoMode = autoMode;
+        previousSliderState = ui->verticalSlider->isEnabled();
+
+        if (autoMode) {
+            autoTimer->stop();
+            autoMode = false;
+        }
+
+        setSliderEnabled(false);
         updateLaserStatus("Laser: On");
         arduino->write("LASER_ON\n");
         laserTimer->start(2000);  // Timer untuk mematikan laser setelah 2 detik
@@ -358,11 +374,29 @@ void MainWindow::resumeOperation() {
         ui->button_auto->setText("Start Auto");
     } */
 
-    resumeTimer->stop();
+    /* resumeTimer->stop();
     if (autoMode) {
         arduino->write("AUTO\n");
     } else {
         arduino->write("MANUAL\n");
+    } */
+
+    resumeTimer->stop();
+
+    if (previousAutoMode) {
+        autoMode = true;
+        autoTimer->start(50);
+        arduino->write("AUTO\n");
+    } else {
+        arduino->write("MANUAL\n");
+    }
+
+    setSliderEnabled(previousSliderState);
+
+    if (autoMode) {
+        ui->button_auto->setText("Stop Auto");
+    } else {
+        ui->button_auto->setText("Start Auto");
     }
 }
 
@@ -481,7 +515,7 @@ void MainWindow::on_button180_clicked() {
 }
 
 void MainWindow::on_verticalSlider_valueChanged(int value) {
-    if (!autoMode) {
+    if (!autoMode && !laserActive) {
         updateServo(QString::number(value) + "\n");
     }
 }
