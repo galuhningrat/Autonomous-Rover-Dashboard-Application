@@ -48,9 +48,9 @@ public:
     QLabel *imuLabel;
     QLabel *ultrasonicLabel;
     QLabel *gpsLabel;
-    QLabel *range;
+    QLabel *rangeLabel;
     QPushButton *button180;
-    QLabel *angle;
+    QLabel *angleLabel;
     QGraphicsView *graphicsView;
     QPushButton *button135;
     QLabel *label;
@@ -257,14 +257,14 @@ public:
 
         verticalLayout->addWidget(gpsLabel);
 
-        range = new QLabel(centralwidget);
-        range->setObjectName("range");
-        range->setGeometry(QRect(330, 420, 175, 45));
-        range->setMaximumSize(QSize(175, 45));
+        rangeLabel = new QLabel(centralwidget);
+        rangeLabel->setObjectName("rangeLabel");
+        rangeLabel->setGeometry(QRect(330, 420, 175, 45));
+        rangeLabel->setMaximumSize(QSize(175, 45));
         QFont font;
         font.setFamilies({QString::fromUtf8("Times New Roman")});
         font.setPointSize(28);
-        range->setFont(font);
+        rangeLabel->setFont(font);
         button180 = new QPushButton(centralwidget);
         button180->setObjectName("button180");
         button180->setGeometry(QRect(300, 170, 61, 32));
@@ -272,12 +272,12 @@ public:
         font1.setFamilies({QString::fromUtf8("Times New Roman")});
         font1.setPointSize(11);
         button180->setFont(font1);
-        angle = new QLabel(centralwidget);
-        angle->setObjectName("angle");
-        angle->setGeometry(QRect(380, 310, 81, 45));
-        angle->setMaximumSize(QSize(150, 45));
-        angle->setFont(font);
-        angle->setAutoFillBackground(false);
+        angleLabel = new QLabel(centralwidget);
+        angleLabel->setObjectName("angleLabel");
+        angleLabel->setGeometry(QRect(380, 310, 81, 45));
+        angleLabel->setMaximumSize(QSize(150, 45));
+        angleLabel->setFont(font);
+        angleLabel->setAutoFillBackground(false);
         graphicsView = new QGraphicsView(centralwidget);
         graphicsView->setObjectName("graphicsView");
         graphicsView->setGeometry(QRect(540, 0, 1000, 531));
@@ -942,9 +942,9 @@ public:
         imuLabel->setText(QCoreApplication::translate("MainWindow", "IMU Data", nullptr));
         ultrasonicLabel->setText(QCoreApplication::translate("MainWindow", "Ultraonic Data", nullptr));
         gpsLabel->setText(QCoreApplication::translate("MainWindow", "GPS Data", nullptr));
-        range->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
+        rangeLabel->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
         button180->setText(QCoreApplication::translate("MainWindow", "180", nullptr));
-        angle->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
+        angleLabel->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
         button135->setText(QCoreApplication::translate("MainWindow", "135", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "Angle:", nullptr));
         button90->setText(QCoreApplication::translate("MainWindow", "90", nullptr));

@@ -71,6 +71,9 @@ MainWindow::MainWindow(QWidget *parent)
         QMessageBox::warning(this, "Port error", "Couldn't find Arduino");
     }
 
+    autoMode = false;  // Pastikan mode otomatis dinonaktifkan saat memulai
+    ui->button_auto->setText("Start Auto");  // Set teks tombol ke "Start Auto"
+
     autoTimer = new QTimer(this);
     connect(autoTimer, &QTimer::timeout, this, &MainWindow::updateServoAuto);
 
@@ -108,7 +111,7 @@ MainWindow::MainWindow(QWidget *parent)
         "   background-color: #05B8CC;"
         "   width: 20px;"
         "}"
-    );
+        );
 
     // Setup battery serial port
     batterySerial->setPortName("COM9");
@@ -183,6 +186,10 @@ void MainWindow::readSerial() {
             processBatteryData(line);
         } else if (line.contains(',')) {
             processRadarData(line);
+        } else if (line == "LASER_ACTIVATED") {
+            handleLaserActivation();
+        } else if (line == "LASER_DEACTIVATED") {
+            resumeOperation();
         }
     }
 }
@@ -196,18 +203,7 @@ void MainWindow::processRadarData(const QString &data) {
         updateDetectionPoint(angle, distance);
 
         if (distance < 50 && !laserActive) {
-            laserActive = true;
-            previousAutoMode = autoMode;
-            previousSliderState = ui->verticalSlider->isEnabled();
-
-            if (autoMode) {
-                autoTimer->stop();
-                autoMode = false;
-            }
-
-            setSliderEnabled(false);
-            updateLaserStatus("Laser: On");
-            laserTimer->start(2000);  // 2 detik
+            handleLaserActivation();
         }
     }
 }
@@ -302,18 +298,51 @@ void MainWindow::updateHistoricalData(float busVoltage, float shuntVoltage, floa
 
 void MainWindow::setSliderEnabled(bool enabled) {
     ui->verticalSlider->setEnabled(enabled);
+    for (QPushButton* button : {ui->button0, ui->button45, ui->button90, ui->button135, ui->button180}) {
+        button->setEnabled(enabled);
+    }
 }
 
 void MainWindow::handleLaserActivation() {
+    laserActive = true;
+    previousAutoMode = autoMode;
+    previousSliderState = ui->verticalSlider->isEnabled();
+
+    if (autoMode) {
+        autoTimer->stop();
+        autoMode = false;
+    }
+
+    setSliderEnabled(false);
+    updateLaserStatus("Laser: On");
+    arduino->write("LASER_ON\n");
+    laserTimer->start(2000);
+}
+
+void MainWindow::resumeOperation() {
     laserActive = false;
-    laserTimer->stop();
     updateLaserStatus("Laser: Off");
+    arduino->write("LASER_OFF\n");
 
     if (previousAutoMode) {
         autoMode = true;
         autoTimer->start(50);
+        arduino->write("AUTO\n");
+    } else {
+        arduino->write("MANUAL\n");
     }
+
     setSliderEnabled(previousSliderState);
+
+    if (autoMode) {
+        ui->button_auto->setText("Stop Auto");
+    } else {
+        ui->button_auto->setText("Start Auto");
+    }
+}
+
+void MainWindow::updateLaserStatus(const QString &status) {
+    ui->textEdit->setPlainText(status);
 }
 
 void MainWindow::updateServo(QString command) {
@@ -327,7 +356,7 @@ void MainWindow::updateServo(QString command) {
 void MainWindow::updateServoAuto() {
     static int angle = 0;
     static bool increasing = true;
-    static const int stepSize = 2;  // Langkah yang lebih kecil untuk pergerakan yang lebih halus
+    static const int stepSize = 2;
 
     if (increasing) {
         angle += stepSize;
@@ -361,6 +390,10 @@ void MainWindow::updateServoAuto() {
 
 void MainWindow::updateDetectionPoint(float angle, float distance) {
     qDebug() << "Updating detection point at angle:" << angle << "distance:" << distance;
+
+    ui->angleLabel->setText(QString("%1°").arg(angle, 0, 'f', 1));
+    ui->rangeLabel->setText(QString("%1 cm").arg(distance, 0, 'f', 1));
+
     float radAngle = qDegreesToRadians(angle);
     float x = distance * qCos(radAngle);
     float y = distance * qSin(radAngle);
@@ -388,32 +421,44 @@ void MainWindow::clearOldDetectionPoints() {
 }
 
 void MainWindow::on_button0_clicked() {
-    updateServo("0\n");
-    ui->verticalSlider->setValue(0);
+    if (!autoMode) {
+        updateServo("0\n");
+        ui->verticalSlider->setValue(0);
+    }
 }
 
 void MainWindow::on_button45_clicked() {
-    updateServo("45\n");
-    ui->verticalSlider->setValue(45);
+    if (!autoMode) {
+        updateServo("45\n");
+        ui->verticalSlider->setValue(45);
+    }
 }
 
 void MainWindow::on_button90_clicked() {
-    updateServo("90\n");
-    ui->verticalSlider->setValue(90);
+    if (!autoMode) {
+        updateServo("90\n");
+        ui->verticalSlider->setValue(90);
+    }
 }
 
 void MainWindow::on_button135_clicked() {
-    updateServo("135\n");
-    ui->verticalSlider->setValue(135);
+    if (!autoMode) {
+        updateServo("135\n");
+        ui->verticalSlider->setValue(135);
+    }
 }
 
 void MainWindow::on_button180_clicked() {
-    updateServo("180\n");
-    ui->verticalSlider->setValue(180);
+    if (!autoMode) {
+        updateServo("180\n");
+        ui->verticalSlider->setValue(180);
+    }
 }
 
 void MainWindow::on_verticalSlider_valueChanged(int value) {
-    updateServo(QString::number(value) + "\n");
+    if (!autoMode) {
+        updateServo(QString::number(value) + "\n");
+    }
 }
 
 void MainWindow::on_button_auto_clicked() {
@@ -427,21 +472,13 @@ void MainWindow::on_button_auto_clicked() {
         autoTimer->start(50);
         ui->button_auto->setText("Stop Auto");
         setSliderEnabled(false);
+        arduino->write("AUTO\n");
     } else {
         autoTimer->stop();
         ui->button_auto->setText("Start Auto");
         setSliderEnabled(true);
+        arduino->write("MANUAL\n");
     }
-}
-
-void MainWindow::resumeOperation() {
-    laserActive = false;
-    qDebug() << "Resuming normal operation";
-    updateLaserStatus("Laser: Off");
-}
-
-void MainWindow::updateLaserStatus(const QString &status) {
-    ui->textEdit->setPlainText(status);
 }
 
 MainWindow::~MainWindow() {

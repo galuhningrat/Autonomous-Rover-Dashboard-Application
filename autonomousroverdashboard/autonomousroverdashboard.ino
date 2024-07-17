@@ -20,6 +20,11 @@ float distance;
 int servoSetting;
 bool servoIncreasing = true;
 
+bool laserActive = false;
+unsigned long laserStartTime = 0;
+
+bool autoMode = false;  // Deklarasi variabel autoMode
+
 void setup() {
   // Serial
   Serial.begin(115200);
@@ -54,24 +59,72 @@ void loop() {
   readSerialCommand();
   outputDistance();
 
-  if (distance < 50) {
-    stopAndActivateLaser();
-  } else {
-    delay(50);
+  if (distance < 50 && !laserActive) {
+    activateLaser();
+    Serial.println("LASER_ACTIVATED");
+  } else if (laserActive && millis() - laserStartTime >= 2000) {
+    deactivateLaser();
+    Serial.println("LASER_DEACTIVATED");
+  }
+
+  if (!laserActive) {
+    if (autoMode) {
+      updateServoAuto();
+    }
   }
 
   sendBatteryData();
-  delay(2000);
+  delay(50);
 }
 
-// Function to read servo angle command from serial
+void activateLaser() {
+  laserActive = true;
+  laserStartTime = millis();
+  digitalWrite(laserPin, HIGH);
+  myservo.write(myservo.read()); // Hentikan servo
+}
+
+void deactivateLaser() {
+  laserActive = false;
+  digitalWrite(laserPin, LOW);
+}
+
+void updateServoAuto() {
+  if (servoIncreasing) {
+    servoSetting += 2;
+    if (servoSetting >= 180) {
+      servoSetting = 180;
+      servoIncreasing = false;
+    }
+  } else {
+    servoSetting -= 2;
+    if (servoSetting <= 0) {
+      servoSetting = 0;
+      servoIncreasing = true;
+    }
+  }
+  myservo.write(servoSetting);
+}
+
 void readSerialCommand() {
   if (Serial.available() > 0) {
     String command = Serial.readStringUntil('\n');
-    int angle = command.toInt();
-    if (angle >= 0 && angle <= 180) {
-      myservo.write(angle);
-      servoSetting = angle;
+    command.trim();
+
+    if (command == "AUTO") {
+      autoMode = true;
+    } else if (command == "MANUAL") {
+      autoMode = false;
+    } else if (command == "LASER_ON") {
+      activateLaser();
+    } else if (command == "LASER_OFF") {
+      deactivateLaser();
+    } else {
+      int angle = command.toInt();
+      if (angle >= 0 && angle <= 180 && !autoMode) {
+        myservo.write(angle);
+        servoSetting = angle;
+      }
     }
   }
 }
@@ -92,14 +145,6 @@ void outputDistance() {
   Serial.print(servoSetting); // Send servo angle
   Serial.print(",");
   Serial.println(distance);   // Send distance
-}
-
-// Function to stop servo and activate laser
-void stopAndActivateLaser() {
-  digitalWrite(laserPin, HIGH); // Turn on the laser
-  delay(2000); // Keep the laser on for 2 seconds
-  digitalWrite(laserPin, LOW); // Turn off the laser
-  delay(2000); // Wait for 2 seconds before resuming
 }
 
 // Function to monitor battery parameters
