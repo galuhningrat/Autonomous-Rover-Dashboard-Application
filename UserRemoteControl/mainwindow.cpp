@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
     , batterySerial(new QSerialPort(this))
     , batteryTimer(new QTimer(this))
-    , maxExpectedPower(1470.0)
+    , maxExpectedPower(1500.0)
     , batteryDataBuffer()
     , r(445.0)
     , angleOffset(0.05)
@@ -93,12 +93,14 @@ MainWindow::MainWindow(QWidget *parent)
     connect(timeTimer, &QTimer::timeout, this, &MainWindow::updateCurrentTime);
     timeTimer->start(1000);  // Update setiap detik
 
+/*
     // Connect signals and slots
     connect(ui->forwardButton, &QPushButton::pressed, this, &MainWindow::moveForward);
     connect(ui->backwardButton, &QPushButton::pressed, this, &MainWindow::moveBackward);
     connect(ui->leftButton, &QPushButton::pressed, this, &MainWindow::turnLeft);
     connect(ui->rightButton, &QPushButton::pressed, this, &MainWindow::turnRight);
-
+*/
+/*
     // Setup serial port
     serial = new QSerialPort(this);
     serial->setPortName("COM3");
@@ -108,6 +110,7 @@ MainWindow::MainWindow(QWidget *parent)
     } else {
         qDebug() << "Failed to open main serial port.";
     }
+*/
 
     // Setup progress bar
     powerProgressBar = ui->persentase;
@@ -144,6 +147,7 @@ MainWindow::MainWindow(QWidget *parent)
     batteryTimer->start(2000);
 }
 
+/*
 void MainWindow::moveForward() {
     serial->write("FORWARD\n");
 }
@@ -159,7 +163,9 @@ void MainWindow::turnLeft() {
 void MainWindow::turnRight() {
     serial->write("RIGHT\n");
 }
+*/
 
+/*
 void MainWindow::updateSensorData() {
     QByteArray data = serial->readAll();
     QList<QByteArray> sensorData = data.split(',');
@@ -172,6 +178,7 @@ void MainWindow::updateSensorData() {
         ui->speedLcd->display(sensorData.at(5).toInt());
     }
 }
+*/
 
 void MainWindow::readBatteryData() {
     QByteArray data = batterySerial->readAll();
@@ -271,7 +278,6 @@ void MainWindow::updateBatteryProgressBar(float power) {
 }
 
 void MainWindow::updateHistoricalData() {
-    // Geser data dari baris 9 ke baris 10, 8 ke 9, dst.
     for (int i = 10; i > 1; --i) {
         QLabel* timeLabel = findChild<QLabel*>(QString("historicalTimeLabel%1_2").arg(i));
         QLabel* busVoltageLabel = findChild<QLabel*>(QString("historicalBusVoltageLabel%1_2").arg(i));
@@ -298,7 +304,6 @@ void MainWindow::updateHistoricalData() {
         }
     }
 
-    // Update baris pertama dengan data terbaru
     if (!historicalData.isEmpty()) {
         QStringList data = historicalData.first().split(',');
         if (data.size() == 6) {
@@ -342,7 +347,7 @@ void MainWindow::handleLaserActivation() {
         setSliderEnabled(false);
         updateLaserStatus("Laser: On");
         arduino->write("LASER_ON\n");
-        laserTimer->start(2000);  // Timer untuk mematikan laser setelah 2 detik
+        laserTimer->start(2000);
     }
 }
 
@@ -351,7 +356,7 @@ void MainWindow::deactivateLaser() {
     updateLaserStatus("Laser: Off");
     arduino->write("LASER_OFF\n");
     laserTimer->stop();
-    resumeTimer->start(1000);  // Timer untuk melanjutkan operasi normal setelah 1 detik
+    resumeTimer->start(0);  // Timer untuk melanjutkan operasi normal setelah 1 detik
 }
 
 void MainWindow::resumeOperation() {

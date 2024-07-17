@@ -25,11 +25,13 @@ public:
     ~MainWindow();
 
 private slots:
+    /*
     void moveForward();
     void moveBackward();
     void turnLeft();
     void turnRight();
     void updateSensorData();
+*/
     void readBatteryData();
     void updateServo(QString command);
     void readSerial();
